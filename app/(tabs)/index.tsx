@@ -8,10 +8,10 @@ import { ThemedView } from '@/components/ThemedView';
 import { useEffect, useState } from 'react';
 import { saveValue, initAppDB } from "./localStore"
 
+
+
 export default function HomeScreen() {
   const [serverIP, setServerIP] = useState('')
-  const [textValue, setTextValue] = useState('')
-
 
   useEffect(() => {
     (async () => {
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1, borderColor: 'gray',
-    padding: 10, marginVertical: 5, borderRadius: 5
+    padding: 10, marginVertical: 5, borderRadius: 5, color : 'white'
   },
 });

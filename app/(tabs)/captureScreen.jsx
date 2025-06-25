@@ -53,8 +53,49 @@ export default function PhotoCaptureScreen() {
   const handleInputChange = (key, value) => {
     setMetadata(prev => ({ ...prev, [key]: value }));
   };
+
   const submitForm = async () => {
-      await insertPerson(metadata.name, metadata.age, metadata.blood_group, metadata.gender);
+    if (!image) {
+      alert('No image selected');
+      return;
+    }
+
+    const uriParts = image.split('.');
+    const fileType = uriParts[uriParts.length - 1];
+
+    const formData = new FormData();
+    formData.append('image', image);
+      formData.append('image', {
+      uri: image,
+      name: `photo.${fileType}`,
+      type: `image/${fileType}`,
+    });
+
+    formData.append('name', metadata.name);
+    formData.append('age', metadata.age);
+    formData.append('blood_group', metadata.blood_group);
+    formData.append('gender', metadata.gender);
+    // Add more fields as needed
+
+    try {
+      const response = await fetch('http://'+ serverAddr + '/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log(`Success: ${data.message} ${data.filename}`);
+      } else {
+        console.log(`Error: ${data.error}`);
+      }
+    } catch (err) {
+      console.error('Upload failed', err);
+      alert('Upload failed');
+    }
+
+
+    await insertPerson(metadata.name, metadata.age, metadata.blood_group, metadata.gender);
       
   } 
 
@@ -70,7 +111,7 @@ export default function PhotoCaptureScreen() {
           </View>
         </TouchableOpacity>
 
-      <Text>Server is {serverAddr}</Text>
+      <Text>Uploading to {serverAddr}</Text>
 
 
 

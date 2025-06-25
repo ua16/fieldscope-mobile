@@ -41,6 +41,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Ionicons name="camera" size={28} color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="records"
+        options={{
+          title: 'Records',
+          tabBarIcon: ({ color }) => <Ionicons name="file-tray-stacked" size={28} color={color} />,
+        }}
+      />
     </Tabs>
   );
 }

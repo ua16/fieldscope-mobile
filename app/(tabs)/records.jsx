@@ -33,8 +33,10 @@ export default function PeopleTable() {
 
 
   return (
-    <View>
-      <Button title="Clear" onPress={clearStuff}/>
+    <View style={styles.container}>
+      <View style={styles.button}>
+          <Button title="Clear" onPress={clearStuff}/>
+      </View>
       <ScrollView horizontal>
         <View style={styles.table}>
           <View style={[styles.row, styles.header]}>
@@ -77,5 +79,14 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: '#ccc',
   },
+  button: {
+    backgroundColor: "red",
+    width : "80%"
+  },
+  container : {
+      marginTop: 30,
+      justifyContent: 'space-between',
+      alignItems: 'center'
+  }
 });
 
