@@ -13,8 +13,6 @@ export const initAppDB = async () => {
       value TEXT NOT NULL
     );`
   );
-  console.log("Created the table")
-
   return db;
 };
 
@@ -24,16 +22,13 @@ export const saveValue = async (key, value) => {
       'INSERT INTO pairs (vkey, value) VALUES (?, ?) ON CONFLICT(vkey) DO UPDATE SET value = EXCLUDED.value',
       key,value
   );
-  console.log("logged the values")
 
   const result = await db.getAllAsync('SELECT * FROM pairs WHERE vkey = ?', key)
-  console.log(result)
 }
 
 export const getValue = async (key) => {
   if (!db) db = await openDatabaseAsync('people.db');
   const result = await db.getFirstAsync('SELECT * FROM pairs WHERE vkey = ?', key)
-  console.log("ahdfadjh" + result.value)
   return result.value
     
 }

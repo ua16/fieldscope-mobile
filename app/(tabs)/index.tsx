@@ -42,7 +42,7 @@ export default function HomeScreen() {
 
       <Button
       title="Change Server"
-      onPress = {() => {saveValue("serverAddr", serverIP); console.log(" dkjf "+textValue)}
+      onPress = {() => {saveValue("serverAddr", serverIP);}
       }
       />
 
