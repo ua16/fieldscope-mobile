@@ -6,7 +6,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useEffect, useState } from 'react';
-import { saveValue, initAppDB } from "./localStore"
+import { saveValue, getValue, initAppDB } from "./localStore"
 
 
 
@@ -16,6 +16,8 @@ export default function HomeScreen() {
   useEffect(() => {
     (async () => {
       await initAppDB();
+      let temp =await getValue('serverAddr');
+      setServerIP(temp);
     })();
   }, []);
 
@@ -70,6 +72,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1, borderColor: 'gray',
-    padding: 10, marginVertical: 5, borderRadius: 5, color : 'white'
+    padding: 10, marginVertical: 5, borderRadius: 5, 
   },
 });

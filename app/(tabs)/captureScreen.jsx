@@ -14,6 +14,10 @@ export default function PhotoCaptureScreen() {
   let [serverAddr, setServerAddr] = useState('') ;
 
   useEffect(() => {
+      // Set Metdata to default values
+      metadata.age =  '0';
+      metadata.blood_group =  'A+';
+      metadata.gender =  "Male";
     (async () => {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
@@ -53,11 +57,16 @@ export default function PhotoCaptureScreen() {
   const handleInputChange = (key, value) => {
     setMetadata(prev => ({ ...prev, [key]: value }));
   };
+  
 
   const submitForm = async () => {
     if (!image) {
       alert('No image selected');
       return;
+    }
+    if (!metadata.name) {
+        alert('Enter a name');
+        return;
     }
 
     const uriParts = image.split('.');
@@ -96,6 +105,7 @@ export default function PhotoCaptureScreen() {
 
 
     await insertPerson(metadata.name, metadata.age, metadata.blood_group, metadata.gender);
+    alert("Uploaded");
       
   } 
 
@@ -120,14 +130,14 @@ export default function PhotoCaptureScreen() {
           <TextInput
             style={styles.input}
             placeholder="Name"
-            value={metadata.name}
+            value={metadata.name }
             onChangeText={(text) => handleInputChange('name', text)}
           />
 
           <TextInput
             style={styles.input}
             placeholder="Age"
-            value={metadata.age}
+            value={metadata.age }
             keyboardType="numeric"
             onChangeText={(text) => handleInputChange('age', text)}
           />
